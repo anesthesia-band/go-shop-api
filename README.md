@@ -1,2 +1,2 @@
 # go-shop-api
-go-shop-api
+a simple shop side project
