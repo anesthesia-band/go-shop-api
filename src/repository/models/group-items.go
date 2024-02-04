@@ -8,7 +8,8 @@ type GroupItem struct {
 	gorm.Model
 	GroupId  uint `gorm:"primaryKey"`
 	ItemId   uint `gorm:"primaryKey"`
-	quantity uint `gorm:"default:0"`
+	Quantity uint `gorm:"default:0"`
+	Active   bool `gorm:"default:true"`
 	Group
 	Item
 }

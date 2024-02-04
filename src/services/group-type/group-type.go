@@ -1,15 +1,15 @@
-package item
+package grouptype
 
 import (
 	"go-shop-api/src/common/response"
-	"go-shop-api/src/repository/item"
+	grouptype "go-shop-api/src/repository/group-type"
 	"strconv"
 
 	"github.com/gofiber/fiber/v2"
 )
 
 func GetAll(c *fiber.Ctx) error {
-	result, error := item.GetAll()
+	result, error := grouptype.GetAll()
 	if error != nil {
 		return response.BadRequestResponse(c, error)
 	}
@@ -23,7 +23,7 @@ func GetById(c *fiber.Ctx) error {
 		return response.BadRequestResponse(c, error)
 	}
 
-	result, error := item.GetById(id)
+	result, error := grouptype.GetById(id)
 	if error != nil {
 		return response.BadRequestResponse(c, error)
 	}
@@ -32,13 +32,13 @@ func GetById(c *fiber.Ctx) error {
 }
 
 func Insert(c *fiber.Ctx) error {
-	var data item.InsertItemData
+	var data grouptype.InsertGroupTypeData
 	error := c.BodyParser(&data)
 	if error != nil {
 		return response.BadRequestResponse(c, error)
 	}
 
-	error = item.Insert(data)
+	error = grouptype.Insert(data)
 	if error != nil {
 		return response.BadRequestResponse(c, error)
 	}
@@ -52,13 +52,13 @@ func UpdateById(c *fiber.Ctx) error {
 		return response.BadRequestResponse(c, error)
 	}
 
-	var data item.UpdateItemData
+	var data grouptype.InsertGroupTypeData
 	error = c.BodyParser(&data)
 	if error != nil {
 		return response.BadRequestResponse(c, error)
 	}
 
-	error = item.UpdateById(id, data)
+	error = grouptype.UpdateById(id, data)
 	if error != nil {
 		return response.BadRequestResponse(c, error)
 	}
@@ -71,7 +71,7 @@ func DeleteById(c *fiber.Ctx) error {
 	if error != nil {
 		return response.BadRequestResponse(c, error)
 	}
-	error = item.DeleteById(id)
+	error = grouptype.DeleteById(id)
 	if error != nil {
 		return response.BadRequestResponse(c, error)
 	}

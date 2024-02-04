@@ -1,15 +1,15 @@
-package item
+package group
 
 import (
 	"go-shop-api/src/common/response"
-	"go-shop-api/src/repository/item"
+	"go-shop-api/src/repository/group"
 	"strconv"
 
 	"github.com/gofiber/fiber/v2"
 )
 
 func GetAll(c *fiber.Ctx) error {
-	result, error := item.GetAll()
+	result, error := group.GetAll()
 	if error != nil {
 		return response.BadRequestResponse(c, error)
 	}
@@ -23,7 +23,7 @@ func GetById(c *fiber.Ctx) error {
 		return response.BadRequestResponse(c, error)
 	}
 
-	result, error := item.GetById(id)
+	result, error := group.GetById(id)
 	if error != nil {
 		return response.BadRequestResponse(c, error)
 	}
@@ -32,13 +32,13 @@ func GetById(c *fiber.Ctx) error {
 }
 
 func Insert(c *fiber.Ctx) error {
-	var data item.InsertItemData
+	var data group.InsertGroupData
 	error := c.BodyParser(&data)
 	if error != nil {
 		return response.BadRequestResponse(c, error)
 	}
 
-	error = item.Insert(data)
+	error = group.Insert(data)
 	if error != nil {
 		return response.BadRequestResponse(c, error)
 	}
@@ -52,13 +52,13 @@ func UpdateById(c *fiber.Ctx) error {
 		return response.BadRequestResponse(c, error)
 	}
 
-	var data item.UpdateItemData
+	var data group.UpdateGroupData
 	error = c.BodyParser(&data)
 	if error != nil {
 		return response.BadRequestResponse(c, error)
 	}
 
-	error = item.UpdateById(id, data)
+	error = group.UpdateById(id, data)
 	if error != nil {
 		return response.BadRequestResponse(c, error)
 	}
@@ -71,7 +71,7 @@ func DeleteById(c *fiber.Ctx) error {
 	if error != nil {
 		return response.BadRequestResponse(c, error)
 	}
-	error = item.DeleteById(id)
+	error = group.DeleteById(id)
 	if error != nil {
 		return response.BadRequestResponse(c, error)
 	}
