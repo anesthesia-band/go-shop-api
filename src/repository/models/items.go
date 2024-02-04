@@ -12,5 +12,6 @@ type Item struct {
 	Data       string
 	Price      string
 	Active     bool `gorm:"default:true"`
+	Quantity   uint `gorm:"default:0"`
 	ItemType
 }

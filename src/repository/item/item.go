@@ -7,44 +7,59 @@ import (
 
 type InsertItemData struct {
 	Name       string
-	ItemTypeId uint `gorm:"index"`
+	ItemTypeId uint
 	Data       string
 	Price      string
 }
 
-func GetItems() ([]models.Item, error) {
+type UpdateItemData struct {
+	Name       string
+	ItemTypeId uint
+	Data       string
+	Price      string
+	Active     bool
+}
+
+func GetAll() ([]models.Item, error) {
 	var items []models.Item
 	result := repository.DB.Find(&items)
 	return items, result.Error
 }
 
-func GetItemById(itemId uint) (models.Item, error) {
+func GetAllActive() ([]models.Item, error) {
+	var items []models.Item
+	result := repository.DB.Where("active = ?", true).Find(&items)
+	return items, result.Error
+}
+
+func GetById(id uint) (models.Item, error) {
 	var item models.Item
-	result := repository.DB.First(&item, itemId)
+	result := repository.DB.First(&item, id)
 	return item, result.Error
 }
 
-func InsertItem(itemData InsertItemData) error {
+func Insert(data InsertItemData) error {
 	result := repository.DB.Create(&models.Item{
-		Name:       itemData.Name,
-		ItemTypeId: itemData.ItemTypeId,
-		Data:       itemData.Data,
-		Price:      itemData.Price,
+		Name:       data.Name,
+		ItemTypeId: data.ItemTypeId,
+		Data:       data.Data,
+		Price:      data.Price,
 	})
 	return result.Error
 }
 
-func UpdateItem(itemId uint, itemData InsertItemData) error {
-	result := repository.DB.Model(&models.Item{}).Where("id = ?", itemId).Updates(models.Item{
-		Name:       itemData.Name,
-		ItemTypeId: itemData.ItemTypeId,
-		Data:       itemData.Data,
-		Price:      itemData.Price,
+func UpdateById(id uint, data UpdateItemData) error {
+	result := repository.DB.Model(&models.Item{}).Where("id = ?", id).Updates(map[string]interface{}{
+		"Name":       data.Name,
+		"ItemTypeId": data.ItemTypeId,
+		"Data":       data.Data,
+		"Price":      data.Price,
+		"Active":     data.Active,
 	})
 	return result.Error
 }
 
-func DeleteItem(itemId uint) error {
-	result := repository.DB.Delete(&models.Item{}, itemId)
+func DeleteById(id uint) error {
+	result := repository.DB.Delete(&models.Item{}, id)
 	return result.Error
 }

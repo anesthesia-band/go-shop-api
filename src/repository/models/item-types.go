@@ -6,6 +6,7 @@ import (
 
 type ItemType struct {
 	gorm.Model
-	Id   uint `gorm:"primaryKey"`
-	Name string
+	Id    uint   `gorm:"primaryKey"`
+	Title string `gorm:"index"`
+	Name  string
 }
