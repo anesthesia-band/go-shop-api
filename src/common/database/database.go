@@ -1,7 +1,7 @@
 package database
 
 import (
-	"go-shop-api/src/models"
+	"go-shop-api/src/repository/models"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"

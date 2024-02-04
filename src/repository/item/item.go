@@ -1,7 +1,8 @@
-package services
+package item
 
 import (
-	"go-shop-api/src/models"
+	"go-shop-api/src/repository"
+	"go-shop-api/src/repository/models"
 )
 
 type InsertItemData struct {
@@ -13,18 +14,18 @@ type InsertItemData struct {
 
 func GetItems() ([]models.Item, error) {
 	var items []models.Item
-	result := db.Find(&items)
+	result := repository.DB.Find(&items)
 	return items, result.Error
 }
 
 func GetItemById(itemId uint) (models.Item, error) {
 	var item models.Item
-	result := db.First(&item, itemId)
+	result := repository.DB.First(&item, itemId)
 	return item, result.Error
 }
 
 func InsertItem(itemData InsertItemData) error {
-	result := db.Create(&models.Item{
+	result := repository.DB.Create(&models.Item{
 		Name:       itemData.Name,
 		ItemTypeId: itemData.ItemTypeId,
 		Data:       itemData.Data,
@@ -34,7 +35,7 @@ func InsertItem(itemData InsertItemData) error {
 }
 
 func UpdateItem(itemId uint, itemData InsertItemData) error {
-	result := db.Model(&models.Item{}).Where("id = ?", itemId).Updates(models.Item{
+	result := repository.DB.Model(&models.Item{}).Where("id = ?", itemId).Updates(models.Item{
 		Name:       itemData.Name,
 		ItemTypeId: itemData.ItemTypeId,
 		Data:       itemData.Data,
@@ -44,6 +45,6 @@ func UpdateItem(itemId uint, itemData InsertItemData) error {
 }
 
 func DeleteItem(itemId uint) error {
-	result := db.Delete(&models.Item{}, itemId)
+	result := repository.DB.Delete(&models.Item{}, itemId)
 	return result.Error
 }
