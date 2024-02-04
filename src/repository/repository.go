@@ -1,11 +1,11 @@
-package services
+package repository
 
 import (
 	"gorm.io/gorm"
 )
 
-var db *gorm.DB
+var DB *gorm.DB
 
 func Init(connection *gorm.DB) {
-	db = connection
+	DB = connection
 }

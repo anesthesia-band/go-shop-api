@@ -1,13 +1,13 @@
 package item
 
 import (
-	"go-shop-api/src/services"
+	"go-shop-api/src/repository/item"
 
 	"github.com/gofiber/fiber/v2"
 )
 
 func InsertItem(c *fiber.Ctx) error {
-	var data services.InsertItemData
+	var data item.InsertItemData
 	error := c.BodyParser(&data)
 	if error != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
@@ -16,7 +16,7 @@ func InsertItem(c *fiber.Ctx) error {
 		})
 	}
 
-	error = services.InsertItem(data)
+	error = item.InsertItem(data)
 	if error != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 			"status":  "Error",
@@ -30,7 +30,7 @@ func InsertItem(c *fiber.Ctx) error {
 }
 
 func GetAllItems(c *fiber.Ctx) error {
-	items, error := services.GetItems()
+	items, error := item.GetItems()
 	if error != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 			"status":  "Error",
